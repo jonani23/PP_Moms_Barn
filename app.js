@@ -9,24 +9,40 @@ const PORT = 3000;
 // Add Middleware
 app.use(morgan('combined'));
 
+// Add Path module
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+
+
+
 // Server
 app.listen(PORT, () =>{
     console.log(`The server is listening on port ${PORT}`);
 });
 
-// Create GET routes
-app.get("/", (request, response) => {
-    response.send("This route points to the Home page");
-})
-app.get("/about", (request, response) => {
-    response.send("This route points to the About page");
-})
-app.get("/login", (request, response) => {
-    response.send("This route points to the Login page");
-})
-app.get("/activities", (request, response) => {
-    response.send("This route points to the Activities page");
-})
-app.get("/register", (request, response) => {
-    response.send("This route points to the Registration page");
-})
+
+// Updating Route Handlers(using render)
+app.get('/', (request, respond) => {
+    respond.render('pages/index');
+});
+
+app.get('/about', (request, respond) => {
+    respond.render('pages/about')
+});
+
+app.get('/login', (request, respond) => {
+    respond.render('pages/login')
+});
+
+app.get('/registration', (request, respond) => {
+    respond.render('pages/register')
+});
+
+app.get('/activities', (request, respond) => {
+    respond.render('pages/activities');
+});
+
+
+// GET routes with Params
+
